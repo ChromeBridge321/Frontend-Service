@@ -27,12 +27,15 @@ class FrontendCotroller extends Controller
                 'Content-Type' => 'application/json'
             ];
 
-            $response = Http::withHeaders($headers)
-            ->timeout(600)->post(env('APIGATEWAY_SERVICE_URL') . '/api/v1/auth/login', $request->all());
+            $response = Http::withHeaders($headers)->retry(3, 100)
+            ->timeout(600)->post(env('APIGATEWAY_SERVICE_URL') . '/api/v1/auth/login', [
+                'email' => $request->input('email'),
+                'password' => $request->input('password')
+            ]);
             session(['api_token' => $response['access_token']]);
             return redirect()->route('index');
         //} catch (Exception $e) {
-             // $error = 1;
+              //$error = 1;
              //return view('auth.login')->with('error', $error);
          //}
     }
