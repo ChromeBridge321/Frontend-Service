@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/login', function () {
+Route::get('/', function () {
     $error = 0;
     return view('auth.login')->with('error', $error);
 });
