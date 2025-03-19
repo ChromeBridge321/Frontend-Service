@@ -22,16 +22,16 @@ class FrontendCotroller extends Controller
 {
     public function login(Request $request)
     {
-        try {
+       // try {
 
             $response = Http::retry(3, 1000)
                 ->timeout(60000)->post(env('APIGATEWAY_SERVICE_URL') . '/api/v1/auth/login', $request->all());
             session(['api_token' => $response['access_token']]);
             return redirect()->route('index');
-        } catch (Exception $e) {
-            $error = $e;
-            return view('auth.login')->with('error', $error);
-        }
+        // } catch (Exception $e) {
+        //     $error = 1;
+        //     return view('auth.login')->with('error', $error);
+        // }
     }
 
     public function index()
@@ -131,6 +131,7 @@ class FrontendCotroller extends Controller
 
             return view('products.products')->with('products', $products->json())->with('error', $error);
     }
+
     public function deleteProduct(Request $request)
     {
         try {
@@ -173,7 +174,7 @@ class FrontendCotroller extends Controller
             'available' => true
         ];
 
-        $storeResponse = Http::withHeaders($headers)->timeout(600)->post(env('APIGATEWAY_SERVICE_URL') . '/api/v1/products', $product);
+        $storeResponse = Http::withHeaders($headers)->timeout(600)->post(env('APIGATEWAY_SERVICE_URL') . '/api/v1/products/store', $product);
         $productResponse = Http::withToken($token)->timeout(600)->get(env('APIGATEWAY_SERVICE_URL') . '/api/v1/products');
         $error = 3;
         return view('products.products')->with('error', $error)->with('products', $productResponse->json());
@@ -229,7 +230,7 @@ class FrontendCotroller extends Controller
             return view('orders.orderEmptyOrders')->with('error', $error)->with('products', $products);
         }
 
-        return view('orders.orderEmptyOrders')->with('orders', $orders)->with('error', $error)->with('products', $products);
+        return view('orders.orders')->with('orders', $orders)->with('error', $error)->with('products', $products);
     }
 
     /**
@@ -314,7 +315,7 @@ class FrontendCotroller extends Controller
 
 
         $error = 1;
-        return view('orders.orderEmptyOrders')->with('orders', $orders)->with('error', $error)->with('products', $products);
+        return view('orders.orders')->with('orders', $orders)->with('error', $error)->with('products', $products);
     }
 
     public function updateOrder(Request $request)
@@ -429,7 +430,7 @@ class FrontendCotroller extends Controller
         ];
 
         //solicitud al endpoint de crear orden
-        $storeResponse = Http::withHeaders($headers)->timeout(6000)->post(env('APIGATEWAY_SERVICE_URL') . '/api/v1/orders', $order);
+        $storeResponse = Http::withHeaders($headers)->timeout(6000)->post(env('APIGATEWAY_SERVICE_URL') . '/api/v1/orders/store', $order);
         $orderResponse = Http::withToken($token)->timeout(600)->get(env('APIGATEWAY_SERVICE_URL') . '/api/v1/orders'); // solicitar las ordenes ya creadas para mostralo en la vista
         $orderResponse->json();
         $data = json_decode($orderResponse, true);

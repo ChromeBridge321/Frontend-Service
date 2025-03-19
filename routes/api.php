@@ -26,7 +26,7 @@ Route::prefix('v1')->middleware(['api', 'jwt.verify'])->group(function () {
         //rutas de productos
         Route::get('/', [ApiGatewayProductcController::class, 'products']);
         Route::get('/low', [ApiGatewayProductcController::class, 'getLowProducts']);
-        Route::post('/', [ApiGatewayProductcController::class, 'storeProduct']);
+        Route::post('/store', [ApiGatewayProductcController::class, 'storeProduct']);
         Route::get('/{id}', [ApiGatewayProductcController::class, 'showProduct']);
         Route::put('/{id}', [ApiGatewayProductcController::class, 'updateProduct']);
         Route::delete('/{id}', [ApiGatewayProductcController::class, 'deleteProduct']);
@@ -35,7 +35,7 @@ Route::prefix('v1')->middleware(['api', 'jwt.verify'])->group(function () {
     Route::prefix('orders')->group(function () {
         //rutas de ordenes
         Route::get('/', [ApiGatewayOrderController::class, 'Order']);
-        Route::post('/', [ApiGatewayOrderController::class, 'storeOrder']);
+        Route::post('/store', [ApiGatewayOrderController::class, 'storeOrder']);
         Route::get('/{id}', [ApiGatewayOrderController::class, 'showOrder']);
         Route::put('/{id}', [ApiGatewayOrderController::class, 'updateOrder']);
         Route::delete('/{id}', [ApiGatewayOrderController::class, 'deleteOrder']);
