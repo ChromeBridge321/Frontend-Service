@@ -22,16 +22,16 @@ class FrontendCotroller extends Controller
 {
     public function login(Request $request)
     {
-       // try {
+        try {
 
-            $response = Http::retry(3, 1000)
-                ->timeout(60000)->post(env('APIGATEWAY_SERVICE_URL') . '/api/v1/auth/login', $request->all());
+            $response = Http::retry(3, 100)
+                ->timeout(600)->post(env('APIGATEWAY_SERVICE_URL') . '/api/v1/auth/login', $request->all());
             session(['api_token' => $response['access_token']]);
             return redirect()->route('index');
-        // } catch (Exception $e) {
-        //     $error = 1;
-        //     return view('auth.login')->with('error', $error);
-        // }
+        } catch (Exception $e) {
+              $error = 1;
+             return view('auth.login')->with('error', $error);
+         }
     }
 
     public function index()
