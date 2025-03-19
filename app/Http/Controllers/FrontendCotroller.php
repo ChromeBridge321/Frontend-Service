@@ -23,9 +23,12 @@ class FrontendCotroller extends Controller
     public function login(Request $request)
     {
         try {
+            $headers = [
+                'Content-Type' => 'application/json'
+            ];
 
-            $response = Http::retry(3, 100)
-                ->timeout(600)->post(env('APIGATEWAY_SERVICE_URL') . '/api/v1/auth/login', $request->all());
+            $response = Http::withHeaders($headers)->retry(3, 100)
+            ->timeout(600)->post(env('APIGATEWAY_SERVICE_URL') . '/api/v1/auth/login', $request->all());
             session(['api_token' => $response['access_token']]);
             return redirect()->route('index');
         } catch (Exception $e) {
