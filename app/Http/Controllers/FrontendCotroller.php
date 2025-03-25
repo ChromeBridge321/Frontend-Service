@@ -22,7 +22,7 @@ class FrontendCotroller extends Controller
 {
     public function login(Request $request)
     {
-        //try {
+        try {
             $headers = [
                 'Content-Type' => 'application/json'
             ];
@@ -34,10 +34,10 @@ class FrontendCotroller extends Controller
             ]);
             session(['api_token' => $response['access_token']]);
             return redirect()->route('index');
-        //} catch (Exception $e) {
-              //$error = 1;
-             //return view('auth.login')->with('error', $error);
-         //}
+        } catch (Exception $e) {
+              $error = 1;
+             return view('auth.login')->with('error', $error);
+         }
     }
 
     public function index()

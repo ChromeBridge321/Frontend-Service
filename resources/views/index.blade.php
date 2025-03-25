@@ -1,126 +1,109 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard index</title>
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    
     <style>
+        :root {
+            --primary-color: #6a11cb;
+            --secondary-color: #2575fc;
+        }
+
+        body {
+            background-color: #f4f6f9;
+        }
+
         .sidebar {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             min-height: 100vh;
-            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
-            background-color: #f8f9fa;
+            color: white;
         }
 
         .sidebar .nav-link {
-            color: #333;
-            padding: 0.75rem 1.25rem;
+            color: rgba(255,255,255,0.8);
+            transition: all 0.3s ease;
         }
 
-        .sidebar .nav-link:hover {
-            color: #0d6efd;
-            background-color: #e9ecef;
-        }
-
+        .sidebar .nav-link:hover,
         .sidebar .nav-link.active {
-            color: #0d6efd;
-            background-color: #e9ecef;
+            color: white;
+            background-color: rgba(255,255,255,0.1);
         }
 
         .sidebar .nav-link i {
-            margin-right: 0.5rem;
-            width: 1.25rem;
+            margin-right: 10px;
         }
 
-        .main-content {
-            min-height: calc(100vh - 56px);
+        .card-header {
+            background-color: #f1f3f5;
         }
 
-        @media (max-width: 767.98px) {
+        .main-content .card {
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 768px) {
             .sidebar {
                 min-height: auto;
             }
         }
     </style>
 </head>
-
 <body>
-    <!-- Header/Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
         <div class="container-fluid">
-            <button class="navbar-toggler d-md-none" type="button" data-bs-toggle="collapse"
-                data-bs-target="#sidebarMenu">
+            <button class="navbar-toggler me-2" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand fw-bold" href="#">Menu DashBoard</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <form action="{{ route('logout') }}" method="post">
-                @csrf
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="#"><i class="fas fa-user"></i> Perfil</a>
-                        </li>
-                        <li class="nav-item">
-                            <button class=" btn btn-outline-dark text-white">
-                                <i class="fas fa-sign-out-alt"></i>
-                                Salir
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-grid-3x3-gap-fill me-2"></i> Dashboard
+            </a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="bi bi-person-circle me-1"></i> Perfil</a>
+                    </li>
+                    <li class="nav-item">
+                        <form action="{{ route('logout') }}" method="post">
+                            @csrf
+                            <button type="submit" class="btn btn-outline-light">
+                                <i class="bi bi-box-arrow-right me-1"></i> Salir
                             </button>
-                        </li>
-                    </ul>
-                </div>
-            </form>
+                        </form>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
 
     <div class="container-fluid">
         <div class="row">
             <!-- Sidebar -->
-            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block collapse sidebar">
-                <div class="pt-3">
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
+                <div class="pt-4 pb-2">
                     <ul class="nav flex-column">
                         <li class="nav-item">
                             <a class="nav-link active" href="{{ route('index') }}">
-                                <i class="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#000000"
-                                        viewBox="0 0 256 256">
-                                        <path
-                                            d="M240,208H224V136l2.34,2.34A8,8,0,0,0,237.66,127L139.31,28.68a16,16,0,0,0-22.62,0L18.34,127a8,8,0,0,0,11.32,11.31L32,136v72H16a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16Zm-88,0H104V160a4,4,0,0,1,4-4h40a4,4,0,0,1,4,4Z">
-                                        </path>
-                                    </svg>
-                                </i>
-                                Home
+                                <i class="bi bi-house-fill"></i> Home
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link " href="{{ route('products') }}">
-                                <i class="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#000000"
-                                        viewBox="0 0 256 256">
-                                        <path
-                                            d="M223.68,66.15,135.68,18a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32l80.35,44L178.57,92.29l-80.35-44Zm0,88L47.65,76,81.56,57.43l80.35,44Zm88,55.85h0l-80,43.79V133.83l32-17.51V152a8,8,0,0,0,16,0V107.56l32-17.51v85.76Z">
-                                        </path>
-                                    </svg>
-                                </i>
-                                Productos
+                            <a class="nav-link" href="{{ route('products') }}">
+                                <i class="bi bi-box-seam-fill"></i> Productos
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('orders') }}">
-                                <i class="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#000000"
-                                        viewBox="0 0 256 256">
-                                        <path
-                                            d="M200,32H163.74a47.92,47.92,0,0,0-71.48,0H56A16,16,0,0,0,40,48V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V48A16,16,0,0,0,200,32Zm-72,0a32,32,0,0,1,32,32H96A32,32,0,0,1,128,32Zm32,128H96a8,8,0,0,1,0-16h64a8,8,0,0,1,0,16Zm0-32H96a8,8,0,0,1,0-16h64a8,8,0,0,1,0,16Z">
-                                        </path>
-                                    </svg>
-                                </i>
-                                Ordenes
+                                <i class="bi bi-receipt-cutoff"></i> Ordenes
                             </a>
                         </li>
                     </ul>
@@ -128,20 +111,30 @@
             </nav>
 
             <!-- Main Content -->
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content ">
-                <div class="row d-flex justify-content-center align-items-center mt-5">
-                    <div class="col-9 mb-3">
-                        <h3>Hola {{ $name }}! estos son tus productos con poco stock hechales un vistazo</h2>
-                    </div>
-                    <div class=" col-9">
-                        <canvas id="myChart"></canvas>
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 pt-4 main-content">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card shadow-sm">
+                            <div class="card-header">
+                                <h4 class="mb-0">
+                                    <i class="bi bi-graph-up me-2"></i>Vista General
+                                </h4>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Hola {{ $name }}! Estos son tus productos con poco stock</h5>
+                                <canvas id="myChart" class="mt-4"></canvas>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </main>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="{{ asset('js/bootstrap.js') }}"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
@@ -156,8 +149,8 @@
                 datasets: [{
                     label: 'Productos con bajo stock',
                     data: data,
-                    backgroundColor: '#f2f2f2',
-                    borderColor: '#a6a6a6',
+                    backgroundColor: 'rgba(106, 17, 203, 0.6)', // Primary color with opacity
+                    borderColor: '#6a11cb',
                     borderWidth: 1
                 }]
             },
@@ -166,10 +159,16 @@
                     y: {
                         beginAtZero: true
                     }
+                },
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    }
                 }
             }
         });
     </script>
 </body>
-
 </html>
